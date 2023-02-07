@@ -1,0 +1,35 @@
+<mat-drawer-container autosize="true" class="max-h-full max-w-7xl flex-auto mx-auto p-10">
+    <mat-drawer-content class="p-10">
+        <mat-card class="p-6 text-center">
+            <mat-list>
+                <mat-list-item><h1>Currently serving</h1></mat-list-item>
+                <mat-list-item><h3>{{getCurrentServingTicket()}}</h3></mat-list-item>
+                <mat-list-item><h1>Last number</h1></mat-list-item>
+                <mat-list-item><h3>{{getLastIssuedTicket()}}</h3></mat-list-item>
+            </mat-list>
+
+            <button mat-raised-button color="primary" class="flex" (click)="addToQueue()">Take a number</button>
+        </mat-card>
+    </mat-drawer-content>
+
+    <mat-drawer-content class="p-10">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let counter of counters, let i = index">
+                <mat-card>
+                    <div class="p-6">
+                        <div class="p-6 text-center">
+                            <span class="text-2xl mr-3">Counter {{counter.counterNo}}</span>
+                            <mat-icon *ngIf="!counter.isOffline && counter.currentNumber === 0" class="text-green-500">lens</mat-icon>
+                            <mat-icon *ngIf="counter.isOffline || counter.currentNumber !== 0" class="text-red-500">lens</mat-icon>
+                        </div>
+                        <div class="p-6 text-center">
+                            <span *ngIf="counter.isOffline" class="text-lg">Unavailable</span>
+                            <span *ngIf="counter.currentNumber === 0 && !counter.isOffline" class="text-lg">Available</span>
+                            <span *ngIf="counter.currentNumber !== 0" class="text-lg">{{counter.currentNumber}}</span>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

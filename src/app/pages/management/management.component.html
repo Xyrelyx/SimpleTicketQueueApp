@@ -1,0 +1,28 @@
+<mat-drawer-container autosize="true" class="max-h-full max-w-7xl flex-auto mx-auto p-10">
+    <mat-drawer-content class="p-10">
+        <div fxLayout="row wrap" fxLayoutGap="32px grid">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let counter of counters, let i = index">
+                <mat-card class="p-6 text-center">
+                    <mat-list class=>
+                        <mat-list-item>
+                            <span class="text-lg">Counter {{counter.counterNo}}</span>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button *ngIf="counter.isOffline" mat-flat-button color="primary" (click)="toggleCounter(i)">Go Online</button>
+                            <button *ngIf="!counter.isOffline" mat-flat-button color="warn" (click)="toggleCounter(i)">Go Offline</button>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button *ngIf="counter.currentNumber === 0 && counter.isOffline" mat-flat-button color="primary" disabled="true">Complete Current</button>
+                            <button *ngIf="!counter.isOffline" mat-flat-button color="primary" (click)="completeCurrentQueue(i)">Complete Current</button>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button *ngIf="counter.isOffline" mat-flat-button color="primary" disabled="true">Call Next</button>
+                            <button *ngIf="counter.currentNumber !== 0 && !counter.isOffline" mat-flat-button color="primary" disabled="true">Call Next</button>
+                            <button *ngIf="counter.currentNumber === 0 && !counter.isOffline" mat-flat-button color="primary" (click)="nextQueue(i)">Call Next</button>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
